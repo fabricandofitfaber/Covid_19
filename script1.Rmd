@@ -19,10 +19,6 @@ GET(url2, write_disk(tf<-tempfile(fileext = ".csv")))
 df=read.csv((tf))
 ```
 
-# Covid Explore
-
-This is cleaning up of the data. 
-
 ```{r message=FALSE, warning=FALSE, paged.print=FALSE}
 covid_death_total <- sum(df$deaths)
 ```
