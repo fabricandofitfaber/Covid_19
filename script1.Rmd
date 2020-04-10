@@ -1,0 +1,62 @@
+---
+title: "Covid Cases in R"
+output:
+  html_document:
+    df_print: paged
+---
+# Covid Data Import
+
+```{r include=FALSE}
+library(httr)
+library(readxl)
+library(RCurl) #Bir link çalışmazsa diğer linki çalıştıracak bir kod var burada.
+
+# http://memosisland.blogspot.com/2012/03/check-url-existance-with-r.html
+
+url2 <- paste("https://opendata.ecdc.europa.eu/covid19/casedistribution/csv")
+GET(url2, write_disk(tf<-tempfile(fileext = ".csv")))
+
+df=read.csv((tf))
+```
+
+# Covid Explore
+
+This is cleaning up of the data. 
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+covid_death_total <- sum(df$deaths)
+```
+
+There have been `r covid_death_total` deaths since `Sys.Date()`.
+
+The features we have are: `r names(df)`.
+
+```{r}
+library(dplyr)
+library(DT)
+edf <- df %>% group_by(countriesAndTerritories) %>% mutate(deathRate = sum(deaths)/sum(cases)) 
+
+datatable(
+edf, extensions = 'Buttons', options = list(
+dom = 'Bfrtip',
+buttons = c('copy', 'csv', 'excel', 'pdf', 'print')
+)
+)
+
+```
+
+# Our First Graph
+
+```{r}
+library(ggplot2)
+
+edf %>% filter(deaths > 50) %>%
+group_by(countriesAndTerritories) %>%
+summarise(Cases_Total = sum(cases), Deaths_Total = sum(deaths)) %>%
+ggplot(aes(countriesAndTerritories)) +
+geom_point(aes(y = Cases_Total, color = "yellow")) +
+geom_point(aes(y = Deaths_Total, color = "red")) +
+coord_flip()
+```
+
+
