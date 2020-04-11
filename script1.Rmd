@@ -4,7 +4,7 @@ output:
   html_document:
     df_print: paged
 ---
-# Covid Data Import
+# Covid-19 Kaynaklı En Fazla Ölümün Olduğu 25 Ülke
 
 ```{r include=FALSE}
 library(httr)
@@ -19,21 +19,35 @@ GET(url2, write_disk(tf<-tempfile(fileext = ".csv")))
 df=read.csv((tf))
 ```
 
+
+
 ```{r message=FALSE, warning=FALSE, paged.print=FALSE}
 covid_death_total <- sum(df$deaths)
+covid_cases_total <- sum(df$cases)
+
+covid_death_top <- aggregate(x = df$deaths,
+          by = list(df$countriesAndTerritories),              
+          FUN = sum) 
+
+covid_death_top_25 <- covid_death_top[order(-covid_death_top$x),]
+
+head(covid_death_top_25,n=25)
+
 ```
 
-There have been `r covid_death_total` deaths since `Sys.Date()`.
+Dünya genelinde Covid-19 tespit edilen vaka sayısı `r covid_cases_total` olmuştur. `Sys.Date()`.
+
+Dünya genelinde Covid-19'dan ölen toplam kişi sayısı `r covid_death_total` olmuştur. `Sys.Date()`.
 
 The features we have are: `r names(df)`.
 
 ```{r}
 library(dplyr)
 library(DT)
-edf <- df %>% group_by(countriesAndTerritories) %>% mutate(deathRate = sum(deaths)/sum(cases)) 
+edf <- df %>% group_by(countriesAndTerritories) %>% mutate(deathRate = sum(deaths)/sum(cases))
 
 datatable(
-edf, extensions = 'Buttons', options = list(
+edf[,c(1,5,6,7,11)], extensions = 'Buttons', options = list(
 dom = 'Bfrtip',
 buttons = c('copy', 'csv', 'excel', 'pdf', 'print')
 )
@@ -41,7 +55,7 @@ buttons = c('copy', 'csv', 'excel', 'pdf', 'print')
 
 ```
 
-# Our First Graph
+# Grafikler
 
 ```{r}
 library(ggplot2)
