@@ -7,6 +7,7 @@ output:
 # Covid-19 Kaynaklı En Fazla Ölümün Olduğu 25 Ülke
 
 ```{r include=FALSE}
+
 library(httr)
 library(readxl)
 library(RCurl) #Bir link çalışmazsa diğer linki çalıştıracak bir kod var burada.
@@ -69,4 +70,36 @@ geom_point(aes(y = Deaths_Total, color = "red")) +
 coord_flip()
 ```
 
+#Türkiye İstatistikleri
+
+```{r}
+
+library(Hmisc)
+
+data <- read.csv("C:/Users/SATELLITE/Desktop/Covid_R/covid_19_data_tr.csv", stringsAsFactors = FALSE)
+
+describe(data)
+
+
+```
+
+```{r}
+
+library(lubridate)
+data$Last_Update <- mdy(data$Last_Update)
+
+# alternative
+# data <- data %>%
+# mutate(days = dmy(Last_Update))
+
+```
+#Türkiye Grafikleri
+
+```{r}
+base <- ggplot(data = data, aes(x=Last_Update, 
+                                y="Toplam Kisi Sayısı",group=1,)) +
+  geom_line(aes(y = Deaths), color="black",size=0.8, linetype="dashed") + 
+  geom_line(aes(y = Recovered), color="steelblue",size=0.8, linetype = "twodash")
+base + scale_x_date(date_breaks = "3 days", date_labels = "%b %d")
+```
 
