@@ -67,7 +67,7 @@ edf %>% filter(deaths > 50) %>%
 group_by(countriesAndTerritories) %>%
 summarise(Toplam_Olum = sum(deaths)) %>%
 ggplot(aes(countriesAndTerritories)) +
-geom_point(aes(y = Toplam_Olum, color = "red")) +
+geom_point(aes(y = Toplam_Olum, color = "red", size = Toplam_Olum)) +
 coord_flip()
 ```
 
@@ -80,7 +80,7 @@ edf %>% filter(cases > 1000) %>%
 group_by(countriesAndTerritories) %>%
 summarise(Toplam_Vaka = sum(cases)) %>%
 ggplot(aes(countriesAndTerritories)) +
-geom_point(aes(y = Toplam_Vaka, color = "red")) +
+geom_point(aes(y = Toplam_Vaka, color = "red", size = Toplam_Vaka)) +
 coord_flip() 
 ```
 
@@ -89,6 +89,8 @@ coord_flip()
 ```{r}
 
 library(Hmisc)
+
+# https://www.kaggle.com/gkhan496/covid19-in-turkey#covid_19_data_tr.csv
 
 data <- read.csv("C:/Users/SATELLITE/Desktop/Covid_R/covid_19_data_tr.csv", stringsAsFactors = FALSE)
 
@@ -111,7 +113,7 @@ data$Last_Update <- mdy(data$Last_Update)
 
 ```{r}
 base <- ggplot(data = data, aes(x=Last_Update, 
-                                y=Toplam_Kisi_Sayisi,group=1)) +
+                                y=Toplam_Kişi_Sayısı,group=1)) +
   geom_line(aes(y = Deaths), color="black",size=0.8, linetype="dashed") + 
   geom_line(aes(y = Recovered), color="steelblue",size=0.8, linetype = "twodash")
 base + scale_x_date(date_breaks = "4 days", date_labels = "%b %d")
