@@ -21,8 +21,7 @@ df=read.csv((tf))
 ```
 
 
-
-```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+```{r echo=FALSE}
 covid_death_total <- sum(df$deaths)
 covid_cases_total <- sum(df$cases)
 
@@ -42,17 +41,17 @@ head(covid_death_top_25,n=25)
 
 ```
 
-Dünya genelinde Covid-19 tespit edilen vaka sayısı `r covid_cases_total` olmuştur. `Sys.Date()`.
+Dünya genelinde `r Sys.Date()` tarihinden bu yana Covid-19 tespit edilen vaka sayısı `r covid_cases_total` olmuştur. .
 
-Dünya genelinde Covid-19'dan ölen toplam kişi sayısı `r covid_death_total` olmuştur. `Sys.Date()`.
+Dünya genelinde `r Sys.Date()` tarihinden bu yana Covid-19'dan ölen toplam kişi sayısı `r covid_death_total` olmuştur. 
 
-Türkiye genelinde Covid-19 tespit edilen vaka sayısı `r covid_cases_tr` olmuştur. `Sys.Date()`.
+Türkiye genelinde `r Sys.Date()` tarihinden bu yana Covid-19 tespit edilen vaka sayısı `r covid_cases_tr` olmuştur. 
 
-Türkiye genelinde Covid-19'dan ölen toplam kişi sayısı `r covid_death_tr` olmuştur. `Sys.Date()`.
+Türkiye genelinde `r Sys.Date()` tarihinden bu yana Covid-19'dan ölen toplam kişi sayısı `r covid_death_tr` olmuştur. 
 
 The features we have are: `r names(df)`.
 
-```{r}
+```{r echo=FALSE}
 library(dplyr)
 library(DT)
 edf <- df %>% group_by(countriesAndTerritories) %>% mutate(deathRate = sum(deaths)/sum(cases))
@@ -70,7 +69,7 @@ buttons = c('copy', 'csv', 'excel', 'pdf', 'print')
 
 ## Grafik A 
 
-```{r}
+```{r echo=FALSE}
 library(ggplot2)
 
 edf %>% filter(deaths > 50) %>%
@@ -83,7 +82,7 @@ coord_flip()
 
 ## Grafik B 
 
-```{r}
+```{r echo=FALSE}
 library(scales) # to access break formatting functions
 
 edf %>% filter(cases > 1000) %>%
@@ -119,13 +118,13 @@ data$Last_Update <- mdy(data$Last_Update)
 # mutate(days = dmy(Last_Update))
 
 ```
+
 #Türkiye Grafikleri
 
 ```{r}
 base <- ggplot(data = data, aes(x=Last_Update, 
                                 y=Toplam_Kişi_Sayısı,group=1)) +
   geom_line(aes(y = Deaths), color="black",size=0.8, linetype="dashed") + 
-  geom_line(aes(y = Recovered), color="steelblue",size=0.8, linetype = "twodash")
-base + scale_x_date(date_breaks = "4 days", date_labels = "%b %d")
+  geom_line(aes(y = Recovered), color="steelblue",size=0.8, linetype = "twodash") 
+  base + scale_x_date(date_breaks = "4 days", date_labels = "%b %d")
 ```
-
