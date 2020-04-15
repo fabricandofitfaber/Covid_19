@@ -26,6 +26,12 @@ df=read.csv((tf))
 covid_death_total <- sum(df$deaths)
 covid_cases_total <- sum(df$cases)
 
+covid_death <- aggregate(df$deaths, by=list(countriesAndTerritories=df$countryterritoryCode), FUN=sum)
+covid_death_tr <- covid_death[186,2]
+
+covid_cases <- aggregate(df$cases, by=list(countriesAndTerritories=df$countryterritoryCode), FUN=sum)
+covid_cases_tr <- covid_cases[186,2]
+
 covid_death_top <- aggregate(x = df$deaths,
           by = list(df$countriesAndTerritories),              
           FUN = sum) 
@@ -39,6 +45,10 @@ head(covid_death_top_25,n=25)
 Dünya genelinde Covid-19 tespit edilen vaka sayısı `r covid_cases_total` olmuştur. `Sys.Date()`.
 
 Dünya genelinde Covid-19'dan ölen toplam kişi sayısı `r covid_death_total` olmuştur. `Sys.Date()`.
+
+Türkiye genelinde Covid-19 tespit edilen vaka sayısı `r covid_cases_tr` olmuştur. `Sys.Date()`.
+
+Türkiye genelinde Covid-19'dan ölen toplam kişi sayısı `r covid_death_tr` olmuştur. `Sys.Date()`.
 
 The features we have are: `r names(df)`.
 
