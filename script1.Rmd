@@ -51,7 +51,42 @@ Türkiye genelinde `r Sys.Date()` tarihinden bu yana Covid-19'dan ölen toplam k
 
 The features we have are: `r names(df)`.
 
+# Türkiye İstatistikleri
+
+```{r include=FALSE}
+library(Hmisc)
+
+# https://www.kaggle.com/gkhan496/covid19-in-turkey#covid_19_data_tr.csv
+
+data <- read.csv("C:/Users/SATELLITE/Desktop/Covid_R/covid_19_data_tr.csv", stringsAsFactors = FALSE)
+
+describe(data)
+```
+
+```{r include=FALSE}
+
+library(lubridate)
+data$Last_Update <- mdy(data$Last_Update)
+
+# alternative
+# data <- data %>%
+# mutate(days = dmy(Last_Update))
+
+```
+
+#Türkiye Grafikleri
+
 ```{r echo=FALSE}
+base <- ggplot(data = data, aes(x=Last_Update, 
+                                y=Toplam_Kişi_Sayısı,group=1)) +
+  geom_line(aes(y = Deaths), color="black",size=0.8, linetype="dashed") + 
+  geom_line(aes(y = Recovered), color="steelblue",size=0.8, linetype = "twodash")
+
+  base + scale_x_date(date_breaks = "4 days", date_labels = "%b %d") 
+    
+```
+
+```{r echo=FALSE, message=FALSE}
 library(dplyr)
 library(DT)
 edf <- df %>% group_by(countriesAndTerritories) %>% mutate(deathRate = sum(deaths)/sum(cases))
@@ -93,38 +128,4 @@ geom_point(aes(y = Toplam_Vaka, color = "red", size = Toplam_Vaka)) +
 coord_flip() 
 ```
 
-#Türkiye İstatistikleri
 
-```{r}
-
-library(Hmisc)
-
-# https://www.kaggle.com/gkhan496/covid19-in-turkey#covid_19_data_tr.csv
-
-data <- read.csv("C:/Users/SATELLITE/Desktop/Covid_R/covid_19_data_tr.csv", stringsAsFactors = FALSE)
-
-describe(data)
-
-
-```
-
-```{r}
-
-library(lubridate)
-data$Last_Update <- mdy(data$Last_Update)
-
-# alternative
-# data <- data %>%
-# mutate(days = dmy(Last_Update))
-
-```
-
-#Türkiye Grafikleri
-
-```{r}
-base <- ggplot(data = data, aes(x=Last_Update, 
-                                y=Toplam_Kişi_Sayısı,group=1)) +
-  geom_line(aes(y = Deaths), color="black",size=0.8, linetype="dashed") + 
-  geom_line(aes(y = Recovered), color="steelblue",size=0.8, linetype = "twodash") 
-  base + scale_x_date(date_breaks = "4 days", date_labels = "%b %d")
-```
