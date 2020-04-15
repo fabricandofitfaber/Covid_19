@@ -21,7 +21,7 @@ df=read.csv((tf))
 ```
 
 
-```{r echo=FALSE}
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
 covid_death_total <- sum(df$deaths)
 covid_cases_total <- sum(df$cases)
 
@@ -40,14 +40,13 @@ covid_death_top_25 <- covid_death_top[order(-covid_death_top$x),]
 head(covid_death_top_25,n=25)
 
 ```
+Dünya genelinde `r Sys.Date()` tarihine kadar Covid-19 tespit edilen vaka sayısı `r covid_cases_total` olmuştur. .
 
-Dünya genelinde `r Sys.Date()` tarihinden bu yana Covid-19 tespit edilen vaka sayısı `r covid_cases_total` olmuştur. .
+Dünya genelinde `r Sys.Date()` tarihine kadar Covid-19'dan ölen toplam kişi sayısı `r covid_death_total` olmuştur. 
 
-Dünya genelinde `r Sys.Date()` tarihinden bu yana Covid-19'dan ölen toplam kişi sayısı `r covid_death_total` olmuştur. 
+Türkiye genelinde `r Sys.Date()` tarihine kadar Covid-19 tespit edilen vaka sayısı `r covid_cases_tr` olmuştur. 
 
-Türkiye genelinde `r Sys.Date()` tarihinden bu yana Covid-19 tespit edilen vaka sayısı `r covid_cases_tr` olmuştur. 
-
-Türkiye genelinde `r Sys.Date()` tarihinden bu yana Covid-19'dan ölen toplam kişi sayısı `r covid_death_tr` olmuştur. 
+Türkiye genelinde `r Sys.Date()` tarihine kadar Covid-19'dan ölen toplam kişi sayısı `r covid_death_tr` olmuştur. 
 
 The features we have are: `r names(df)`.
 
