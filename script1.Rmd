@@ -1,5 +1,5 @@
 ---
-title: "Covid Cases in R"
+title: "Covid Cases in R - powered by Harry Tuttle"
 output:
   html_document:
     df_print: paged
@@ -48,7 +48,7 @@ Türkiye genelinde `r Sys.Date()` tarihine kadar Covid-19 tespit edilen vaka say
 
 Türkiye genelinde `r Sys.Date()` tarihine kadar Covid-19'dan ölen toplam kişi sayısı `r covid_death_tr` olmuştur. 
 
-The features we have are: `r names(df)`.
+<!-- The features we have are: `r names(df)`. -->
 
 # Türkiye İstatistikleri
 
@@ -79,7 +79,7 @@ data$Last_Update <- mdy(data$Last_Update)
 base <- ggplot(data = data, aes(x=Last_Update, 
                                 y=Toplam_Kişi_Sayısı,group=1)) +
   geom_line(aes(y = Deaths), color="black",size=0.8, linetype="dashed") + 
-  geom_line(aes(y = Recovered), color="steelblue",size=0.8, linetype = "twodash")
+  geom_line(aes(y = Recovered), color="steelblue",size=0.8, linetype = "twodash") 
 
   base + scale_x_date(date_breaks = "4 days", date_labels = "%b %d") 
     
