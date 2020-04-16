@@ -73,13 +73,17 @@ data$Last_Update <- mdy(data$Last_Update)
 
 ```
 
-#Türkiye Grafikleri
+#Türkiye için Hasta / İyileşen Sayısı
 
 ```{r echo=FALSE}
+library(directlabels)
+
 base <- ggplot(data = data, aes(x=Last_Update, 
                                 y=Toplam_Kişi_Sayısı,group=1)) +
   geom_line(aes(y = Deaths), color="black",size=0.8, linetype="dashed") + 
-  geom_line(aes(y = Recovered), color="steelblue",size=0.8, linetype = "twodash")
+  geom_line(aes(y = Recovered), color="steelblue",size=0.8, linetype = "twodash") +
+geom_text(aes(x = as.Date("2020-04-12"), y = 7089, label = "Toplam İyileşen", color = "Recovered")) + 
+geom_text(aes(x = as.Date("2020-04-12"), y = 1518, label = "Toplam Ölüm", color = "Deaths"))
   
   base + scale_x_date(date_breaks = "4 days", date_labels = "%b %d")  
     
@@ -121,9 +125,11 @@ library(scales) # to access break formatting functions
 
 edf %>% filter(cases > 1000) %>%
 group_by(countriesAndTerritories) %>%
-summarise(Toplam_Vaka = sum(cases)) %>%
+summarise(Toplam_Vaka = log2(sum(cases))) %>%
+
 ggplot(aes(countriesAndTerritories)) +
 geom_point(aes(y = Toplam_Vaka, color = "red", size = Toplam_Vaka)) +
 coord_flip() 
 ```
+
 
