@@ -1,5 +1,5 @@
 ---
-title: "Covid Cases in R - powered by Harry Tuttle"
+title: "Covid Cases in R"
 output:
   html_document:
     df_print: paged
@@ -79,9 +79,9 @@ data$Last_Update <- mdy(data$Last_Update)
 base <- ggplot(data = data, aes(x=Last_Update, 
                                 y=Toplam_Kişi_Sayısı,group=1)) +
   geom_line(aes(y = Deaths), color="black",size=0.8, linetype="dashed") + 
-  geom_line(aes(y = Recovered), color="steelblue",size=0.8, linetype = "twodash") 
-
-  base + scale_x_date(date_breaks = "4 days", date_labels = "%b %d") 
+  geom_line(aes(y = Recovered), color="steelblue",size=0.8, linetype = "twodash")
+  
+  base + scale_x_date(date_breaks = "4 days", date_labels = "%b %d")  
     
 ```
 
@@ -126,5 +126,4 @@ ggplot(aes(countriesAndTerritories)) +
 geom_point(aes(y = Toplam_Vaka, color = "red", size = Toplam_Vaka)) +
 coord_flip() 
 ```
-
 
