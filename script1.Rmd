@@ -73,17 +73,17 @@ data$Last_Update <- mdy(data$Last_Update)
 
 ```
 
-#Türkiye için Hasta / İyileşen Sayısı
+#Türkiye için Toplam Ölüm / İyileşen Sayısı
 
 ```{r echo=FALSE}
 library(directlabels)
 
-base <- ggplot(data = data, aes(x=Last_Update, 
-                                y=Toplam_Kişi_Sayısı,group=1)) +
-  geom_line(aes(y = Deaths), color="black",size=0.8, linetype="dashed") + 
+base <- ggplot(data = data, ylim = c(0,200000), aes(x=Last_Update, 
+                                y=Toplam_Kişi_Sayısı, group=1)) +
+    geom_line(aes(y = Deaths), color="black",size=0.8, linetype="dashed") + 
   geom_line(aes(y = Recovered), color="steelblue",size=0.8, linetype = "twodash") +
-geom_text(aes(x = as.Date("2020-04-12"), y = 7089, label = "Toplam İyileşen", color = "Recovered")) + 
-geom_text(aes(x = as.Date("2020-04-12"), y = 1518, label = "Toplam Ölüm", color = "Deaths"))
+ geom_text(aes(x = as.Date("2020-04-12"), y = 8631, label = "Toplam İyileşen", color = "Recovered")) + 
+geom_text(aes(x = as.Date("2020-04-12"), y = 1643, label = "Toplam Ölüm", color = "Deaths"))
   
   base + scale_x_date(date_breaks = "4 days", date_labels = "%b %d")  
     
@@ -131,24 +131,26 @@ ggplot(aes(countriesAndTerritories)) +
 geom_point(aes(y = Toplam_Vaka, color = "red", size = Toplam_Vaka)) +
 coord_flip() 
 ```
+#Bar Plot Grafik için Hazırlık
+```{r include=FALSE}
+library(kableExtra)
+library(tidyverse)
+library(zoo)
+library(ggplot2)
+library(devtools)
+
+url3 <- paste("https://opendata.ecdc.europa.eu/covid19/casedistribution/csv")
+GET(url3, write_disk(tff<-tempfile(fileext = ".csv")))
+
+dff=read.csv((tf))
+```
+
+#Bar Plot Grafiği
 
 ```{r}
-# library(kableExtra)
-# library(tidyverse)
-# library(zoo)
-# library(ggplot2)
-# library(devtools)
-# 
-# url3 <- paste("https://opendata.ecdc.europa.eu/covid19/casedistribution/csv")
-# GET(url3, write_disk(tff<-tempfile(fileext = ".csv")))
-# 
-# dff=read.csv((tf))
-# 
-# veriseti <- head(dff)
+
+
 # kable(veriseti) %>%
 #   kable_styling(bootstrap_options = "striped", font_size = 10, full_width = F)
-
-
-
 ```
 
