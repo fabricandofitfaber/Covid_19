@@ -147,7 +147,7 @@ dff=read.csv((tf))
 
 #Bar Plot Grafiği
 
-```{r}
+```{r include=FALSE}
 
 
 # kable(veriseti) %>%
