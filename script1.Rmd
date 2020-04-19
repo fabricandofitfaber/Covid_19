@@ -82,8 +82,8 @@ base <- ggplot(data = data, ylim = c(0,200000), aes(x=Last_Update,
                                 y=Toplam_Kişi_Sayısı, group=1)) +
     geom_line(aes(y = Deaths), color="black",size=0.8, linetype="dashed") + 
   geom_line(aes(y = Recovered), color="steelblue",size=0.8, linetype = "twodash") +
- geom_text(aes(x = as.Date("2020-04-12"), y = 8631, label = "Toplam İyileşen", color = "Recovered")) + 
-geom_text(aes(x = as.Date("2020-04-12"), y = 1643, label = "Toplam Ölüm", color = "Deaths"))
+ geom_text(aes(x = as.Date("2020-04-15"), y = 11500, label = "Toplam İyileşen", color = "Recovered")) + 
+geom_text(aes(x = as.Date("2020-04-16"), y = 2500, label = "Toplam Ölüm", color = "Deaths"))
   
   base + scale_x_date(date_breaks = "4 days", date_labels = "%b %d")  
     
