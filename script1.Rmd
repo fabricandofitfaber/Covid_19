@@ -205,15 +205,15 @@ Countriestable
 ```{r include=FALSE, message=FALSE}
 #Part2_PLottingCountriesUsingLeaflet.R
 
-# install.packages("stringr")
-# install.packages("maps")
-# install.packages("ggplot2")
-# install.packages("sf")
-# install.packages("dplyr")
-# install.packages("raster")
-# install.packages("GADMTools")
-# install.packages("rgeos")
-# install.packages("leaflet")
+install.packages("stringr")
+install.packages("maps")
+install.packages("ggplot2")
+install.packages("sf")
+install.packages("dplyr")
+install.packages("raster")
+install.packages("GADMTools")
+install.packages("rgeos")
+install.packages("leaflet")
 
 library(stringr)
 library(maps)
